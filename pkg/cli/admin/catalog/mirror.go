@@ -718,7 +718,10 @@ func WriteManifests(out io.Writer, source, dest imagesource.TypedImageReference,
 
 	fmt.Fprintf(out, "wrote mirroring manifests to %s\n", dir)
 
-	if dest.Type == imagesource.DestinationFile {
+	cmdPath := strings.Split(os.Args[0], "/")
+	cmd := cmdPath[len(cmdPath)-1]
+
+	if dest.Type == imagesource.DestinationFile && cmd != "oc-mirror" {
 		localIndexLocation, err := mount(source, dest, 0)
 		if err != nil {
 			return err
