@@ -721,7 +721,7 @@ func WriteManifests(out io.Writer, source, dest imagesource.TypedImageReference,
 	cmdPath := strings.Split(os.Args[0], "/")
 	cmd := cmdPath[len(cmdPath)-1]
 
-	if dest.Type == imagesource.DestinationFile && cmd != "oc-mirror" {
+	if dest.Type == imagesource.DestinationFile && !strings.Contains(cmd, "mirror") {
 		localIndexLocation, err := mount(source, dest, 0)
 		if err != nil {
 			return err
